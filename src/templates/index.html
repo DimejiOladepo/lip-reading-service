@@ -12,23 +12,37 @@
 			crossorigin="anonymous"
 		/>
 	</head>
-	<body>
+	<body style="background-color:#708090">
 		<div class="container">
 			<div class="row mt-4">
 				<div class="col-12 text-center">
 					<div>
-						<textarea
-							rows="10"
-							cols="40"
-							placeholder="Enter Text"
-							name="textarea"
-						></textarea>
+						<div class="row mb-4">
+				
+							<div class="col-sm-6" style>
+								<textarea
+									rows="20"
+									cols="60"
+									placeholder="Enter Text"
+									name="textarea"
+								>
+							</textarea>
+
+								<form method="post" action="{{ url_for('tasks') }}">
+									<input type="submit" value="Start" class="btn btn-success" name="start"/>
+									<input type="submit" value="Stop" class="btn btn-danger" name="stop"/>
+									<input type="submit" value="Save" class="btn btn-primary" name ="save" />
+								</form>	
+							</div>
+
+							<div class="col-sm-6" style>
+								<div>
+									<img src="{{ url_for('video') }}" height="20%", id="myDIV">
+								</div>
+							</div>
+						</div>
 					</div>
-					<form method ='post'></form>
-					<input type="submit" value="Start" class="btn btn-success"/>
-					<input type="submit" value="Stop" class="btn btn-danger" />
-					<input type="submit" value="Save" class="btn btn-primary" />
-				</form>
+				
 				</div>
 			</div>
 		</div>
