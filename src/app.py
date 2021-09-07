@@ -65,6 +65,7 @@ def video():
 def tasks():
     global switch,camera, out,thread,start_time, end_time,frame
     if request.method == 'POST':
+
         if request.form.get('start') == 'Start':
             start_time =datetime.datetime.now()
             print(start_time)
@@ -73,8 +74,8 @@ def tasks():
             out = cv2.VideoWriter(getAviNameWithDate("output.avi"), fourcc, 20.0, (640, 480))
             thread = Thread(target = record, args=[out,])
             thread.start()  #Start new thread for recording the video
-            
-           
+            print(request.form['textarea'])
+
             
         else:
             pass
@@ -89,17 +90,17 @@ def tasks():
             out.release()
             cv2.destroyAllWindows()
         else: pass
+        
 
         
     elif request.method=='GET':
-        return render_template('index.html', test ='testing')
-    return render_template('index.html',test ='testing')
+        return render_template('index.html')
+    return render_template('index.html',test =request.form['textarea'])
 
 
   
 
-    with open(getAviNameWithDate("a.avi"),"w") as w:
-        w.write("1")
+    
 
 
 if __name__ == '__main__':
