@@ -71,7 +71,7 @@ def tasks():
             print(start_time)
             camera = cv2.VideoCapture(0)
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            out = cv2.VideoWriter(getAviNameWithDate("output.avi"), fourcc, 20.0, (640, 480))
+            out = cv2.VideoWriter("Video/output.avi", fourcc, 20.0, (640, 480))
             thread = Thread(target = record, args=[out,])
             thread.start()  #Start new thread for recording the video
             print(request.form['textarea'])
