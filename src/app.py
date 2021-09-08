@@ -1,4 +1,4 @@
-from flask import Flask,render_template,Response,request
+from flask import Flask,render_template,Response,request,stream_with_context
 import cv2
 import os
 import datetime as datetime,time
@@ -18,7 +18,7 @@ def record(out):
     while True:
 
         time.sleep(0.05)
-        out.write(rec_frame)
+        out.write(frame)
 
 def getAviNameWithDate(nameIn="output_video.avi"):
     """Needs a file ending on .avi, inserts _<date> before .avi. """
@@ -65,13 +65,13 @@ def video():
 def tasks():
     global switch,camera, out,thread,start_time, end_time,frame
     if request.method == 'POST':
-
+        
         if request.form.get('start') == 'Start':
             start_time =datetime.datetime.now()
             print(start_time)
             camera = cv2.VideoCapture(0)
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            out = cv2.VideoWriter("Video/output.avi", fourcc, 20.0, (640, 480))
+            out = cv2.VideoWriter("output.avi", fourcc, 20.0, (640, 480))
             thread = Thread(target = record, args=[out,])
             thread.start()  #Start new thread for recording the video
             print(request.form['textarea'])
