@@ -80,8 +80,8 @@ def tasks():
             duration = divmod(minutes_dif.seconds,60)
             minute,second=duration[0],duration[1]
             print(duration)
-            out.release()
             camera.release()
+            out.release()
             cv2.destroyAllWindows()
         else: pass
     elif request.method=='GET':
