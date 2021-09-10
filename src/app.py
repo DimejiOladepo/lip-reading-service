@@ -101,7 +101,7 @@ def tasks():
         else: pass
     elif request.method=='GET':
         return render_template('index.html')
-    return render_template('index.html',test ='testing')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
