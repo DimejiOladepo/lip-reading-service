@@ -4,11 +4,26 @@ import os
 import datetime as datetime,time
 from threading import Thread
 
+
+
 app = Flask(__name__, template_folder='./templates')
 global camera,switch, rec_frame,start_time,end_time,frame
 camera = None
 switch =0
 frame =None
+
+def folder_creat(video_name="output.mp4" ):
+    name="video"
+    directory=os.path.normpath(os.getcwd() + os.sep + os.pardir)
+    os.chdir(directory)
+    file_path = os.listdir()
+    if name in file_path:
+        return os.path.join(directory,name,video_name)
+    else:
+        os.mkdir(name)
+        print(f'Folder "{name}" succesfully created!')
+    return os.path.join(directory,name,video_name)
+
 
 
 def record(out):
@@ -67,7 +82,7 @@ def tasks():
             width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
             height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-            file_path=os.path.normpath(os.getcwd() + os.sep + os.pardir+'/video/output.mp4')
+            file_path=folder_creat()
             out = cv2.VideoWriter(file_path, fourcc, 20.0, (width, height))
             thread = Thread(target = record, args=[out,])
             thread.start()  #Start new thread for recording the video  
