@@ -5,12 +5,12 @@ import datetime as datetime,time
 from threading import Thread
 
 
-
 app = Flask(__name__, template_folder='./templates')
 global camera,switch, rec_frame,start_time,end_time,frame
 camera = None
 switch =0
 frame =None
+
 
 def folder_creat(video_name="output.mp4" ):
     name="video"
@@ -25,22 +25,12 @@ def folder_creat(video_name="output.mp4" ):
     return os.path.join(directory,name,video_name)
 
 
-
 def record(out):
     global rec_frame, frame
     rec_frame =frame
     while True:
         time.sleep(0.05)
         out.write(rec_frame)
-
-
-def getAviNameWithDate(nameIn="output_video.avi"):
-    """Needs a file ending on .avi, inserts _<date> before .avi. """
-
-    if not nameIn.endswith(".avi"):
-        raise ValueError("filename must end on .avi")
-    filename = nameIn.replace(".avi","_{0}.avi").format(datetime.datetime.now().strftime("%Y-%m-%d"))
-    return filename
 
 
 def generate_frames():
@@ -66,9 +56,11 @@ def generate_frames():
 def index():
     return render_template('index.html')
 
+
 @app.route('/video')
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 @app.route('/requests',methods=['POST','GET'])
 def tasks():
