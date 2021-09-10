@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src ="{{ url_for('static',filename='script.js') }}"></script>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Lip Reading Service</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body style="background-color:#708090">
+		<div class="container-fluid vh-100" >
+			<div class="row mt-4" style="width: 100%; height:100%">
+				<div class="col-12" >
+					<div style="width: 100%; height:100%">
+						<div class="row mb-4"style="width: 100%; height:100%">
+							<form method="post" action="{{ url_for('tasks') }}" id="formid">
+
+							</form>
+							
+							<div class="col-sm-6" style="width: 100%; height:80%" >
+								<textarea
+									rows="20"
+									cols="60"
+									placeholder="Enter Text"
+									name="textarea",
+									id="tetxb"
+									style="width:100%;height: 100%;"
+									
+									form='formid'></textarea>	
+									<br>
+									<div class="col-sm-6 offset-md-3">
+										<input type="submit" value="Start" class="btn btn-success" name="start", id="start" form ="formid"/>
+										<input type="submit" value="Stop" class="btn btn-danger" name="stop"id="stop" form ="formid"/>
+										<input type="submit" value="Save" class="btn btn-primary" name ="save" id ="save" form ="formid"/>
+										<input type="submit" value="Audio" class="btn btn-secondary" name ="audio" id ="audio" form ="formid"/>
+									</div>
+							</div>
+
+							<div class="col-sm-6" style='width:100%;height:80%'  id ='imagecontainer'>
+								
+								<img src="{{ url_for('video') }}" style="height:100%; width:100%", id="myDIV">
+									
+								
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
