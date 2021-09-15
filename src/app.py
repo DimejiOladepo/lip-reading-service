@@ -6,12 +6,14 @@ from threading import Thread
 import jyserver.Flask as jsf
 from init import db,app,directory
 from models import camera_task, operation
+from audio import text_to_speech
 
 global camera,switch, rec_frame,start_time,end_time,frame
 camera = None
 switch =0
 frame =None
 
+'''
 def folder_creat(video_name="output.mp4" ):
     name="video"
     directory=os.path.normpath(os.getcwd() + os.sep + os.pardir)
@@ -22,8 +24,8 @@ def folder_creat(video_name="output.mp4" ):
     else:
         os.mkdir(name)
         print(f'Folder "{name}" succesfully created!')
-    return os.path.join(directory,name,video_name)
-
+        return os.path.join(directory,name,video_name)
+'''
 
 def record(out):
     global rec_frame, frame
@@ -104,17 +106,13 @@ def tasks():
             width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
             height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-            file_path=folder_creat()
-            out = cv2.VideoWriter(file_path, fourcc, 20.0, (width, height))
+            video_file =os.path.join(directory,'video' ,'output.mp4')
+            out = cv2.VideoWriter(video_file, fourcc, 20.0, (width, height))
             thread = Thread(target = record, args=[out,])
             thread.start()  #Start new thread for recording the video  
         else:
             pass
         if request.form.get('stop') == 'Stop':
-            end_time =datetime.datetime.now()
-            minutes_dif=end_time-start_time
-            duration = divmod(minutes_dif.seconds,60)
-            minute,second=duration[0],duration[1]
             camera.release()
             out.release()
             cv2.destroyAllWindows()
@@ -130,6 +128,11 @@ def tasks():
             db.session.add(table1_input)
             db.session.add(table2_input)
             db.session.commit()
+
+        if request.form.get('audio') =="Audio":
+            print('audio')
+            text_to_speech(user_input)
+
            
     elif request.method=='GET':
         return App.render(render_template('index.html'))
