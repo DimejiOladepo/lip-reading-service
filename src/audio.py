@@ -22,6 +22,8 @@ def text_to_speech(text, gender='Female'):
     # Change voices: 0 for male and 1 for female
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[code].id)
-
-    engine.say(text)
-    engine.runAndWait()
+    try:
+        engine.say(text)
+        engine.runAndWait()
+    except RuntimeError as e:
+        pass
