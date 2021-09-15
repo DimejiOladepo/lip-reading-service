@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Lip Reading Service</title>
+		<link rel="shortcut icon" href="/static/icon.png" type="image/x-icon">
 		<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -14,8 +15,8 @@
 			crossorigin="anonymous"
 		/>
 	</head>
-	<body  class ="cover" >
-		<div class="container-fluid vh-100 cover" style="background-image:url('/static/background_image.png'); background-size:cover">
+	<body  class ="cover" style="background-image:url('/static/background_image.png'); background-size:cover" >
+		<div class="container-fluid vh-100 cover">
 			<div class="row mt-4" style="width: 100%; height:100%">
 				<div class="col-12" >
 					<div style="width: 100%; height:100%">
@@ -38,8 +39,8 @@
 									<div class="col-sm-6 offset-md-4 ">
 										<input type="submit" value="Start" class="btn btn-success" name="start", id="start" form ="formid" onclick="server.getTime()"/>
 										<input type="submit" value="Stop" class="btn btn-danger" name="stop"id="stop" form ="formid" onclick="server.endTime()"/>
-										<input type="submit" value="Save" class="btn btn-primary" name ="save" id ="save" form ="formid" onclick="server.savingTimeFunc()"/>
 										<input type="submit" value="Audio" class="btn btn-secondary" name ="audio" id ="audio" form ="formid"/>
+										<input type="submit" value="Save" class="btn btn-primary" name ="save" id ="save" form ="formid" onclick="server.savingTimeFunc()"/>
 									</div>
 							</div>
 
