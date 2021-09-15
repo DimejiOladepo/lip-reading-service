@@ -44,7 +44,6 @@ def generate_frames():
 @jsf.use(app)
 class App:
     def __init__(self):
-        
         self.startTime = 0
         self.stopTime = 0
         self.textStartTime = 0
@@ -57,9 +56,11 @@ class App:
         self.stopTime =datetime.datetime.now()
         print('end:', self.stopTime)
         self.js.document.getElementById("time").innerHTML=20
+
     def textInputTime(self):
         self.textStartTime =datetime.datetime.now()
-        print('textArea:', self.textStartTime)   
+        print('textArea:', self.textStartTime)  
+
     def savingTimeFunc(self):
         self.savingTime=datetime.datetime.now()
         print('savingTime:', self.savingTime)
@@ -95,7 +96,6 @@ def tasks():
                 out = cv2.VideoWriter(video_file, fourcc, 20.0, (width, height))
                 thread = Thread(target = record, args=[out,])
                 thread.start()  #Start new thread for recording the video  
-        
         if request.form.get('stop') == 'Stop':
             if camera == None:
                 pass
@@ -104,12 +104,10 @@ def tasks():
                 out.release()
                 cv2.destroyAllWindows()
                 camera = None
-       
         if request.form.get('audio') == 'Audio':
             text_to_speech(user_input)
-       
+
         if request.form.get('save') == 'Save':
-           
             cam_duration=App.stopTime-App.startTime
             cam_duration=format(cam_duration.total_seconds(),'.2f')
             session_duration =App.savingTime-App.textStartTime
@@ -120,11 +118,9 @@ def tasks():
             db.session.add(table2_input)
             db.session.commit()
 
-        
-
-           
     elif request.method=='GET':
         return App.render(render_template('index.html'))
+        
     return App.render(render_template('index.html',user_input=user_input))
 
 

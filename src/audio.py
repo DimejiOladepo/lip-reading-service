@@ -14,7 +14,7 @@ def text_to_speech(text, gender='Male'):
     engine = pyttsx3.init('nsss')
 
     # Setting up voice rate
-    engine.setProperty('rate', 120)
+    engine.setProperty('rate', 135)
 
     # Setting up volume level  between 0 and 1
     engine.setProperty('volume', 0.8)
@@ -22,7 +22,9 @@ def text_to_speech(text, gender='Male'):
     # Change voices: 0 for male and 1 for female
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[code].id)
-  
-    engine.say(text)
-    engine.runAndWait()
-
+    try:
+        engine.say(text)
+        engine.runAndWait()
+    except Exception:
+        pass
+        
