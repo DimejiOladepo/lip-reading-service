@@ -31,7 +31,7 @@
 									cols="60"
 									placeholder="Enter Text"
 									name="text",
-									id="tetxb"
+									id="text",
 									style="width:100%;height: 100%;"
 									onchange="server.textInputTime()"
 									form='formid'>{{user_input}}</textarea>	
@@ -39,7 +39,7 @@
 									<div class="col-sm-6 offset-md-4 ">
 										<input type="submit" value="Start" class="btn btn-success" name="start", id="start" form ="formid" onclick="server.getTime()"/>
 										<input type="submit" value="Stop" class="btn btn-danger" name="stop"id="stop" form ="formid" onclick="server.endTime()"/>
-										<input type="submit" value="Audio" class="btn btn-secondary" name ="audio" id ="audio" form ="formid"/>
+										<input type="submit" value="Audio" class="btn btn-secondary" name ="audio" onclick="server.audioClick()"/>
 										<input type="submit" value="Save" class="btn btn-primary" name ="save" id ="save" form ="formid" onclick="server.savingTimeFunc()"/>
 									</div>
 							</div>

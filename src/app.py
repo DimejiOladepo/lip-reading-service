@@ -59,11 +59,17 @@ class App:
 
     def textInputTime(self):
         self.textStartTime =datetime.datetime.now()
+        self.user_input=self.js.document.getElementById('text').value.eval()
         print('textArea:', self.textStartTime)  
 
     def savingTimeFunc(self):
         self.savingTime=datetime.datetime.now()
         print('savingTime:', self.savingTime)
+
+    def audioClick(self):
+        time.sleep(1)
+        text_to_speech(self.user_input)
+       
 
 
 @app.route('/')
@@ -100,12 +106,12 @@ def tasks():
             if camera == None:
                 pass
             else:
-                camera.release()
                 out.release()
+                camera.release()
                 cv2.destroyAllWindows()
                 camera = None
-        if request.form.get('audio') == 'Audio':
-            text_to_speech(user_input)
+                time.sleep(2)
+
 
         if request.form.get('save') == 'Save':
             cam_duration=App.stopTime-App.startTime
