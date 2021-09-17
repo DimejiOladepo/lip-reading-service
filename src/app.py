@@ -4,6 +4,8 @@ import os
 import datetime as datetime, time
 from threading import Thread
 import jyserver.Flask as jsf
+
+from werkzeug.exceptions import HTTPException
 from init import db,app, directory
 from models import camera_task, operation
 from audio import text_to_speech
@@ -27,19 +29,22 @@ def generate_frames():
     if camera is None:
         pass
     else:
-        while True:
+        while (camera.isOpened()):
             success,frame=camera.read()
             if not success:
                 break
             else:
                 rec_frame=frame
                 frame=cv2.flip(frame,1)
-                ret,buffer=cv2.imencode('.jpg',frame)
-                frames=buffer.tobytes()
+                try:
+                    ret,buffer=cv2.imencode('.jpg',frame)
+                    frames=buffer.tobytes()
 
-            yield(b'--frame\r\n'
+                    yield(b'--frame\r\n'
                     b'Content-Type: image/jpeg\r\n\r\n' + frames + b'\r\n')
 
+                except Exception as e:
+                    pass          
 
 @jsf.use(app)
 class App:
@@ -55,12 +60,11 @@ class App:
     def endTime(self):
         self.stopTime =datetime.datetime.now()
         print('end:', self.stopTime)
-        self.js.document.getElementById("time").innerHTML=20
 
     def textInputTime(self):
         self.textStartTime =datetime.datetime.now()
         self.user_input=self.js.document.getElementById('text').value.eval()
-        print('textArea:', self.textStartTime)  
+     
 
     def savingTimeFunc(self):
         self.savingTime=datetime.datetime.now()
@@ -69,7 +73,6 @@ class App:
     def audioClick(self):
         time.sleep(1)
         text_to_speech(self.user_input)
-       
 
 
 @app.route('/')
@@ -110,9 +113,7 @@ def tasks():
                 camera.release()
                 cv2.destroyAllWindows()
                 camera = None
-                time.sleep(2)
-
-
+                
         if request.form.get('save') == 'Save':
             cam_duration=App.stopTime-App.startTime
             cam_duration=format(cam_duration.total_seconds(),'.2f')
@@ -128,6 +129,14 @@ def tasks():
         return App.render(render_template('index.html'))
         
     return App.render(render_template('index.html',user_input=user_input))
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    
+    if isinstance(e, HTTPException):
+        return e
+    
+    return render_template("layout.html", e=e), 500
 
 
 if __name__ == '__main__':
