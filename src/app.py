@@ -27,18 +27,22 @@ def generate_frames():
     if camera is None:
         pass
     else:
-        while True:
-            success,frame=camera.read()
-            if not success:
-                break
-            else:
-                rec_frame=frame
-                frame=cv2.flip(frame,1)
-                ret,buffer=cv2.imencode('.jpg',frame)
-                frames=buffer.tobytes()
+        try:
+            while (camera.isOpened()):
+                success,frame=camera.read()
+                if not success:
+                    print('failed')
+                    pass
+                else:
+                    rec_frame=frame
+                    frame=cv2.flip(frame,1)
+                    ret,buffer=cv2.imencode('.jpg',frame)
+                    frames=buffer.tobytes()
 
-            yield(b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + frames + b'\r\n')
+                yield(b'--frame\r\n'
+                        b'Content-Type: image/jpeg\r\n\r\n' + frames + b'\r\n')
+        except Exception as e:
+            print(e)
 
 
 @jsf.use(app)
@@ -54,8 +58,7 @@ class App:
         
     def endTime(self):
         self.stopTime =datetime.datetime.now()
-        print('end:', self.stopTime)
-        self.js.document.getElementById("time").innerHTML=20
+
 
     def textInputTime(self):
         self.textStartTime =datetime.datetime.now()
@@ -67,10 +70,13 @@ class App:
         print('savingTime:', self.savingTime)
 
     def audioClick(self):
-        time.sleep(1)
-        text_to_speech(self.user_input)
-       
+        # time.sleep(1)
+        print(self.user_input)
+        try:
 
+            text_to_speech(self.user_input)
+        except Exception as e:
+           pass  
 
 @app.route('/')
 def index():
@@ -91,6 +97,7 @@ def tasks():
             if camera !=None:
                 pass
             else:
+                time.sleep(1)
                 start_time =datetime.datetime.now()
                 print(start_time)
                 camera = cv2.VideoCapture(0)
@@ -103,16 +110,17 @@ def tasks():
                 thread = Thread(target = record, args=[out,])
                 thread.start()  #Start new thread for recording the video  
         if request.form.get('stop') == 'Stop':
-            if camera == None:
-                pass
-            else:
-                out.release()
+            if camera != None:
                 camera.release()
+                out.release()
                 cv2.destroyAllWindows()
                 camera = None
-                time.sleep(2)
-
-
+                time.sleep(1)
+                
+            else:
+                pass
+                
+             
         if request.form.get('save') == 'Save':
             cam_duration=App.stopTime-App.startTime
             cam_duration=format(cam_duration.total_seconds(),'.2f')
