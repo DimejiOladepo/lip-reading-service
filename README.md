@@ -28,3 +28,18 @@ For Linux
 ```bash
 sudo apt install ffmpeg
 ```
+
+
+## References 
+### Hahn Discrete Orthogonal Polynomials 
+1) [Mesbah, A., Berrahou, A., Hammouchi, H., Berbia, H., Qjidaa, H., & Daoudi, M. (2019). Lip Reading with Hahn Convolutional Neural Networks. Image and Vision Computing. doi:10.1016/j.imavis.2019.04.010] 
+(https://sci-hub.se/10.1016/j.imavis.2019.04.010)
+
+2) [Hongqing Zhu, Huazhong Shu, Jian Zhou, Limin Luo, Jean-Louis Coatrieux. Image analysis by
+discrete orthogonal dual Hahn moments. Pattern Recognition Letters, Elsevier, 2007, 28 (13), pp.1688-
+1704. ff10.1016/j.patrec.2007.04.013ff. ffinserm-00189813f] (https://www.hal.inserm.fr/inserm-00189813/file/Image_analysis_Hahn.pdf)
+
+3) [Nikiforov, Arnold F.; Uvarov, Vasilii B. (1988). Special Functions of Mathematical Physics || . , 10.1007/978-1-4757-1595-8(), –. doi:10.1007/978-1-4757-1595-8]
+(https://sci-hub.mksa.top/10.1007/978-1-4757-1595-8)
+
+4) [Gamma function] (https://en.wikipedia.org/wiki/Gamma_function)

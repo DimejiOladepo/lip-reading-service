@@ -15,12 +15,13 @@ import editdistance
 
     
 class MyDataset(Dataset):
-    letters = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     def __init__(self, video_path, anno_path, file_list, vid_pad, txt_pad, phase):
-        self.anno_path = anno_path
+        # self.anno_path = anno_path
         self.vid_pad = vid_pad
-        self.txt_pad = txt_pad
+        # self.txt_pad = txt_pad
         self.phase = phase
         
         with open(file_list, 'r') as f:
@@ -35,7 +36,7 @@ class MyDataset(Dataset):
     def __getitem__(self, idx):
         (vid, spk, name) = self.data[idx]
         vid = self._load_vid(vid)
-        anno = self._load_anno(os.path.join(self.anno_path, spk, 'align', name + '.align'))
+        # anno = self._load_anno(os.path.join(self.anno_path, spk, 'align', name + '.align'))
 
         if(self.phase == 'train'):
             vid = HorizontalFlip(vid)
@@ -43,9 +44,9 @@ class MyDataset(Dataset):
         vid = ColorNormalize(vid)                   
         
         vid_len = vid.shape[0]
-        anno_len = anno.shape[0]
+        # anno_len = anno.shape[0]
         vid = self._padding(vid, self.vid_pad)
-        anno = self._padding(anno, self.txt_pad)
+        # anno = self._padding(anno, self.txt_pad)
         
         return {'vid': torch.FloatTensor(vid.transpose(3, 0, 1, 2)), 
             'txt': torch.LongTensor(anno),
