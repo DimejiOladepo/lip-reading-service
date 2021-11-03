@@ -135,6 +135,6 @@ dmypy.json
 data/
 
 # dummy files & folders
-dump.py
 ./
 shape_predictor_68_face_landmarks.dat
+/dump.py
