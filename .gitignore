@@ -128,5 +128,13 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#Mac system file attribute/metadata
+# Mac system file attribute/metadata
 .DS_Store
+
+# Video and Image Files
+data/
+
+# dummy files & folders
+./
+shape_predictor_68_face_landmarks.dat
+/dump.py
