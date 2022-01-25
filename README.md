@@ -1,6 +1,8 @@
 # Lip-Reader
 
-This project is a simple web-based app that performs visual lip reading using Hahn orthogonal moments for feature extraction  
+We aim to build a web-based app that can perform visual lip reading to help vocally impaired people communicate.
+
+For this project, we are employing HCNN(Hahn-based Convolutional Neural Networks) in learning lip shape to character translation (letters and digits). Hahn orthogonal moments were used for feature extraction and input layer before being passed to the convolution layers 
 
 In this version, we use Python 3.9, PyTorch 1.9.0 and dlib 19.22.1
 
